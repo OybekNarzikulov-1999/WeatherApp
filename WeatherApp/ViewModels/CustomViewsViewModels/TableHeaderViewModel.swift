@@ -26,7 +26,8 @@ final class TableHeaderViewModel {
 	}
 	
 	var temperature: String {
-		return "\(Int(hourlyWeather.temperature.first ?? 0))°"
+		let currentHour = Calendar.current.component(.hour, from: Date())
+		return "\(Int(hourlyWeather.temperature[currentHour] ?? 0))°"
 	}
 	
 	init(hourlyWeather: HourlyWeather) {

@@ -14,13 +14,10 @@ final class DetailCellViewModel {
 	private let temperature: Float
 	
 	private var date = Date()
+	
 	var hour: String {
-		
-		let hours = String(time.dropFirst(11).prefix(2))
-		if hours == "\(Calendar.current.component(.hour, from: date))"{
-			return "Now"
-		}
-		return hours
+		let weatherHourString = String(time.dropFirst(11).prefix(2))
+		return weatherHourString
 	}
 	
 	var temp: String {

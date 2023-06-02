@@ -148,9 +148,8 @@ extension MainViewController: CLLocationManagerDelegate {
 	}
 
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
-		viewModel?.currentLocation = locations.first
 		manager.stopUpdatingLocation()
+		viewModel?.currentLocation = locations.first
 	}
 	
 }

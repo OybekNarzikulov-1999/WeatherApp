@@ -70,9 +70,23 @@ final class Service {
 			}
 			
 			// Сохранение ответа в CoreData
-			let cachedResponse = CachedResponse(context: self.context)
-			cachedResponse.url = url.absoluteString
-			cachedResponse.responseData = data
+			var cachedResponse: CachedResponse?
+			let fetchRequest: NSFetchRequest<CachedResponse> = CachedResponse.fetchRequest()
+			do {
+				let fetchResult = try self.context.fetch(fetchRequest)
+				if fetchResult.count == 0 {
+				   // here you are inserting
+					cachedResponse = CachedResponse(context: self.context)
+				} else {
+				   // here you are updating
+					cachedResponse = fetchResult.first
+				}
+				cachedResponse?.responseData = data
+				cachedResponse?.url = url.absoluteString
+			} catch {
+				print("Core data error")
+			}
+			
 			do {
 				try self.context.save()
 			} catch {
